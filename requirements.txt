@@ -3,3 +3,9 @@ pandas
 gunicorn
 sklearn
 scikit-image
+numpy
+matplotlib.pyplot
+plotly
+scipy.sparse
+seaborn
+
