@@ -60,6 +60,10 @@ def main():
            
 
 
+@app.route('/anime/')
+def anime():
+    return flask.render_template('anime.html')
+
 
 
 # @app.route('/images/')
