@@ -13,30 +13,22 @@ from scipy.sparse import csr_matrix
 
 app = flask.Flask(__name__, template_folder='templates')
 
-# path_to_anime_matrix = 'models/anime_matrix.pkl'
-# path_to_anime_pivot = 'models/anime_pivot.pkl'
-# path_to_knnmodel= 'models/knnmodel.pkl'
-# path_to_df_anime = 'models/df_anime.pkl'
+path_to_anime_pivot = 'models/anime_pivot.pkl'
+path_to_model_knn= 'models/model_knn.pkl'
 
 N_RECOMMENDATIONS  = 6  # Recommending 5 only (1st will be itself)
 
 
 
-# with open(path_to_anime_matrix, 'rb') as f:
-#     anime_matrix = pickle.load(f)
+with open(path_to_anime_pivot, 'rb') as f:
+    anime_pivot = pickle.load(f)
 
-# with open(path_to_anime_pivot, 'rb') as f:
-#     anime_pivot = pickle.load(f)
-
-# with open(path_to_knnmodel, 'rb') as f:
-#     knnmodel = pickle.load(f)
-
-# with open(path_to_df_anime, 'rb') as f:
-#     df_anime = pickle.load(f)
+with open(path_to_model_knn, 'rb') as f:
+    model_knn = pickle.load(f)
 
 arr = []
 for i in range(len(anime_pivot)):
-    arr.append(df_anime['title'][int(i)])
+    arr.append(anime_pivot.index[int(i)])
 
 @app.route('/', methods=['GET', 'POST'])
 def main():
@@ -45,21 +37,26 @@ def main():
         return(flask.render_template('index.html'))
 
 
-    # if flask.request.method == 'POST':
-    #     results =[]
-    #     user_input_text = flask.request.form['user_input_text']
+    if flask.request.method == 'POST':
+        results =[]
+        user_input_text = flask.request.form['user_input_text']
         
-    #     idx = arr.index(user_input_text)
-    #     results.append(["Anime Selected: "])
+        if(isinstance(user_input_text, str)):
+            # finds the id from the string.
+            idx = arr.index(user_input_text)
+        else:
+            idx = user_input_text
         
-    #     distances, indices = knnmodel.kneighbors(anime_matrix[idx], n_neighbors = N_RECOMMENDATIONS)
-    #     for i in indices:
-    #         results.append([df_anime['title'][i]])
-
+        distances, indices = model_knn.kneighbors(anime_pivot.iloc[idx,:].values.reshape(1, -1), n_neighbors = N_RECOMMENDATIONS)
+        for i in range(0, len(distances.flatten())):
+            if i == 0:
+                results.append(['Recommendations for {0} with id {1}:'.format(anime_pivot.index[idx], idx)])
+            else:
+                results.append(['{0}: {1}, with distance of {2}:'.format(i, anime_pivot.index[indices.flatten()[i]], round(distances.flatten()[i], 4))])
         
-    #     return flask.render_template('index.html', 
-    #         input_text=user_input_text,
-    #         result=results)
+        return flask.render_template('index.html', 
+            input_text=user_input_text,
+            result=results)
            
 
 
