@@ -1,35 +1,147 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    	<meta charset="utf-8">
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-    <title>Anime Recommendation System</title>
-  </head>
-  <body>
-  	<h1> Hello World </h1>
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+    /* Add a gray background color and some padding to the footer */
+    footer {
+      background-color: #f2f2f2;
+      padding: 25px;
+    }
+
+    .carousel-inner img {
+      width: 100%; /* Set width to 100% */
+      min-height: 200px;
+    }
+
+    /* Hide the carousel text when the screen is less than 600 pixels wide */
+    @media (max-width: 600px) {
+      .carousel-caption {
+        display: none; 
+      }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <!-- <a class="navbar-brand" href="#">ANIME RECOMMENDATIONS</a> -->
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="container text-center">   
+  <h2 >TOP 5 Anime Based on Rating Counts</h2>
+  </div>
+<div class="row">
+  <div class="col-sm-12">
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+      <!-- Indicators -->
+      <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+      </ol>
+
+      <!-- Wrapper for slides -->
+      <div class="carousel-inner" role="listbox"style="height: 600px;" >
+        
+        <div class="item active">
+            <div class="col-sm-6" style="align-items: center;height: 500px;margin-top:20px;margin-bottom: 20px;" >
+              <img src={{images[0]}} alt="Image"style="height: 100%; width:100%;object-fit: contain;" >
+            </div> 
+            <div class="col-sm-4" style="align-items: right;margin-top:20px;margin-bottom: 20px;" >
+              <div class="well">
+                <h2>{{titles[0]}}</h2>
+                <h3>Rating: {{ratings[0]}}</h3>
+                  <p>{{synopsis[0]}} </p>
+              </div>
+          </div>
+        </div>
+
+          {% for imgurl in images%}
+          {% if loop.index >1 %}
+          <div class="item"  >
+                <div class="col-sm-6" style="align-items: center;height: 500px;margin-top:20px;margin-bottom: 20px;" >
+                  <img src={{imgurl}} alt="Image"style="height: 100%; width:100%;object-fit: contain;" >
+                </div> 
+                <div class="col-sm-4" style="align-items: right;margin-top:20px;margin-bottom: 20px;" >
+                  <div class="well">
+                    <h2>{{titles[loop.index]}}</h2>
+                    <h3>Rating: {{ratings[loop.index]}}</h3>
+                    <p>{{synopsis[loop.index]}} </p>
+                  </div>
+              </div>
+          </div>
+          {% endif %}
+          {% endfor %}
+  
+        </div>
+	    
+        
+      </div>
+
+      <!-- Left and right controls -->
+      <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
+  </div>
+ 
+</div>
+<hr>
+</div>
+
+	<div class="container text-center">    
 	<form action="{{ url_for('main') }}" method="POST">
-	    <fieldset>
-	        <legend>Input Text:</legend>
-	        Type your text in here:
-	        <input name="user_input_text" type="text" required>
-	        <input type="submit" value="Submit">
-	    </fieldset>
+		<fieldset>
+			<legend>Recommending more...</legend>
+			Type your favrite anime title here:
+			<input name="user_input_text" type="text" required>
+			<input type="submit" value="Recommend">
+		</fieldset>
 	</form>
 	<div class="alert alert-success">
-
-
 		{% for row in result %}
-		
-			<ul>
+		<div class="col-sm-3">
+			<div class="well">
+				<p>{{row}}</p>
 				
-				<li>{{row|join(', ')}}<li>
-		
-			</ul>
+			</div>
+		</div>
 		{% endfor %}
-	    
-
-
 	</div>
-   
-  </body>
+	
+
+</body>
 </html>
+
+
+
+
+
+
+
