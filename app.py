@@ -15,6 +15,9 @@ app = flask.Flask(__name__, template_folder='templates')
 
 path_to_anime_pivot = 'models/anime_pivot.pkl'
 path_to_model_knn= 'models/model_knn.pkl'
+path_to_anime_ratingCount= 'models/anime_ratingCount.pkl'
+path_to_df_anime= 'models/df_anime.pkl'
+path_to_anime_full_data= 'models/anime_full_data.pkl'
 
 N_RECOMMENDATIONS  = 6  # Recommending 5 only (1st will be itself)
 
@@ -26,6 +29,16 @@ with open(path_to_anime_pivot, 'rb') as f:
 with open(path_to_model_knn, 'rb') as f:
     model_knn = pickle.load(f)
 
+with open(path_to_anime_ratingCount, 'rb') as f:
+    anime_ratingCount = pickle.load(f)
+
+with open(path_to_df_anime, 'rb') as f:
+    df_anime = pickle.load(f)
+
+with open(path_to_anime_full_data, 'rb') as f:
+    anime_full_data = pickle.load(f)
+
+
 arr = []
 for i in range(len(anime_pivot)):
     arr.append(anime_pivot.index[int(i)])
@@ -35,7 +48,6 @@ def main():
     if flask.request.method == 'GET':
         # Just render the initial form, to get input
         return(flask.render_template('index.html'))
-
 
     if flask.request.method == 'POST':
         results =[]
@@ -62,49 +74,22 @@ def main():
 
 @app.route('/anime/')
 def anime():
-    return flask.render_template('anime.html')
+    top5_animerating=anime_ratingCount[['anime_uid','title', 'score_review','img_url']].sort_values(by = 'score_review',ascending = False).head(5)
+    imgs =[]
+    title =[]
+    rating = []
+    synopsis =[]
+    for idd in top5_animerating['anime_uid']:
+        imgs.append((anime_ratingCount[anime_ratingCount['anime_uid']==idd]['img_url']).values[0])
+        synopsis.append((anime_full_data[anime_full_data['anime_uid']==idd]['synopsis']).values[0])
+        title.append((anime_full_data[anime_full_data['anime_uid']==idd]['title']).values[0])
+        rating.append((anime_full_data[anime_full_data['anime_uid']==idd]['score']).values[0])
 
-
-
-# @app.route('/images/')
-# def images():
-#     return flask.render_template('images.html')
-
-
-# @app.route('/bootstrap/')
-# def bootstrap():
-#     return flask.render_template('bootstrap.html')
-
-
-# @app.route('/classify_image/', methods=['GET', 'POST'])
-# def classify_image():
-#     if flask.request.method == 'GET':
-#         # Just render the initial form, to get input
-#         return(flask.render_template('classify_image.html'))
-
-#     if flask.request.method == 'POST':
-#         # Get file object from user input.
-#         file = flask.request.files['file']
-
-#         if file:
-#             # Read the image using skimage
-#             img = io.imread(file)
-
-#             # Resize the image to match the input the model will accept
-#             img = transform.resize(img, (28, 28))
-
-#             # Flatten the pixels from 28x28 to 784x0
-#             img = img.flatten()
-
-#             # Get prediction of image from classifier
-#             predictions = image_classifier.predict([img])
-
-#             # Get the value of the prediction
-#             prediction = predictions[0]
-
-#             return flask.render_template('classify_image.html', prediction=str(prediction))
-
-#     return(flask.render_template('classify_image.html'))
+    return flask.render_template('anime.html',
+        images = imgs, 
+        ratings = rating, 
+        synopsis = synopsis,
+        titles= title )
 
 
 

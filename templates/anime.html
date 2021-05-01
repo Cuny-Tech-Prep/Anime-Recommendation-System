@@ -49,6 +49,9 @@
 </nav>
 
 <div class="container">
+  <div class="container text-center">   
+  <h2 >TOP 5 Anime Based on Rating Counts</h2>
+  </div>
 <div class="row">
   <div class="col-sm-12">
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -59,28 +62,41 @@
       </ol>
 
       <!-- Wrapper for slides -->
-      <div class="carousel-inner" role="listbox" >
-        <div class="item active" style="height: 500px" >
-        <div class="col-sm-6" >
-            <img src="https://cdn.myanimelist.net/images/anime/9/76662.jpg" alt="Image" 
-          style='height: 500px; width:auto;  margin-left: 200px;'> 
-        </div>
-          <div class="col-sm-4" style="align-items: right;" >
-                <div class="well">
-                    <h2>Haikyuu!! Second Season</h2>
-                    <h3>Rating: 8.82</h3>
-                    <p>Following their participation at the Inter-High, the Karasuno High School volleyball team attempts t... </p>
-                </div>
-            </div>
+      <div class="carousel-inner" role="listbox"style="height: 600px;" >
+        
+        <div class="item active">
+            <div class="col-sm-6" style="align-items: center;height: 500px;margin-top:20px;margin-bottom: 20px;" >
+              <img src={{images[0]}} alt="Image"style="height: 100%; width:100%;object-fit: contain;" >
+            </div> 
+            <div class="col-sm-4" style="align-items: right;margin-top:20px;margin-bottom: 20px;" >
+              <div class="well">
+                <h2>{{titles[0]}}</h2>
+                <h3>Rating: {{ratings[0]}}</h3>
+                  <p>{{synopsis[0]}} </p>
+              </div>
+          </div>
         </div>
 
-        <div class="item">
-          <img src="https://placehold.it/800x400?text=Another Image Maybe" alt="Image">
-          <!-- <div class="carousel-caption">
-            <h3>More Sell $</h3>
-            <p>Lorem ipsum...</p>
-          </div>       -->
+          {% for imgurl in images%}
+          {% if loop.index >1 %}
+          <div class="item"  >
+                <div class="col-sm-6" style="align-items: center;height: 500px;margin-top:20px;margin-bottom: 20px;" >
+                  <img src={{imgurl}} alt="Image"style="height: 100%; width:100%;object-fit: contain;" >
+                </div> 
+                <div class="col-sm-4" style="align-items: right;margin-top:20px;margin-bottom: 20px;" >
+                  <div class="well">
+                    <h2>{{titles[loop.index]}}</h2>
+                    <h3>Rating: {{ratings[loop.index]}}</h3>
+                    <p>{{synopsis[loop.index]}} </p>
+                  </div>
+              </div>
+          </div>
+          {% endif %}
+          {% endfor %}
+  
         </div>
+	    
+        
       </div>
 
       <!-- Left and right controls -->
