@@ -17,7 +17,7 @@ app = flask.Flask(__name__, template_folder='templates')
 path_to_collaborative_filtering_rec = 'models/collaborative_filtering_rec.pkl'
 path_to_anime_ratingCount= 'models/anime_ratingCount.pkl'
 path_to_df_anime= 'models/df_anime.pkl'
-path_to_anime_full_data= 'models/anime_full_data.pkl'
+path_to_anime_full_data= 'models/anime_data.pkl'
 
 N_RECOMMENDATIONS  = 6  # Recommending 5 only (1st will be itself)
 

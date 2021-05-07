@@ -134,7 +134,11 @@
 		</div>
 		{% endfor %}
 	</div>
-	
+    {% for images in collaborative_img_url %}
+      <div class="col-sm-6" style="align-items: center;height: 500px;margin-top:20px;margin-bottom: 20px;">
+        <img src={{images}} alt="Image" style="height: 100%; width:100%;object-fit: contain;">
+      </div>
+    {% endfor %}
 
 </body>
 </html>
