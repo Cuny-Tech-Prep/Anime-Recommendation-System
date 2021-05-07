@@ -124,6 +124,7 @@
 			<input type="submit" value="Recommend">
 		</fieldset>
 	</form>
+  {% if collaborative_img_url %}
   <div class="container text-center">
    <h2> Collaborative Filtering Recommendation</h2>
   
@@ -137,7 +138,9 @@
 		</div>
 		{% endfor %}
     </div>
- 
+    {%endif%}
+    
+    {% if content_img_url %}
     <div class="container text-center">
      <h2>Content Based Filtering Recommendation</h2> 
    
@@ -151,6 +154,7 @@
     </div>
     {% endfor %}
     </div>
+    {%endif%}
 
 
 

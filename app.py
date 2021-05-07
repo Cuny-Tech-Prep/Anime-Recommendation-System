@@ -5,7 +5,6 @@ import pandas as pd
 from skimage import io
 from skimage import transform
 import numpy as np 
-import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import seaborn as sns
 from scipy.sparse import csr_matrix
