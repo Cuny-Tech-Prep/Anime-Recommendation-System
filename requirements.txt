@@ -8,4 +8,6 @@ matplotlib.pyplot
 plotly
 scipy.sparse
 seaborn
-
+re
+TfidfVectorizer
+sigmoid_kernel
