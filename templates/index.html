@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Bootstrap Example</title>
+  <title>Anime Recommendation</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -124,21 +124,35 @@
 			<input type="submit" value="Recommend">
 		</fieldset>
 	</form>
-	<div class="alert alert-success">
-		{% for row in result %}
-		<div class="col-sm-3">
-			<div class="well">
-				<p>{{row}}</p>
-				
+  <div class="container text-center">
+   <h2> Collaborative Filtering Recommendation</h2>
+  
+		{% for img_url in collaborative_img_url %}
+		<div class="col-sm-3" style="align-items: center;width: 220px; margin-top: 20px;">
+			<div class="well" >
+				<p>{{collaborative_recommended_anime_title[loop.index-1]}}</p>
+        <img src={{img_url}} alt="Image" style="height: 100%; width:100%;object-fit: contain;">
+			
 			</div>
 		</div>
 		{% endfor %}
-	</div>
-    {% for images in collaborative_img_url %}
-      <div class="col-sm-6" style="align-items: center;height: 500px;margin-top:20px;margin-bottom: 20px;">
-        <img src={{images}} alt="Image" style="height: 100%; width:100%;object-fit: contain;">
+    </div>
+ 
+    <div class="container text-center">
+     <h2>Content Based Filtering Recommendation</h2> 
+   
+    {% for img_url in content_img_url %}
+    <div class="col-sm-3" style="align-items: center;width: 220px; margin-top: 20px;">
+      <div class="well">
+        <p>{{content_recommended_anime_title[loop.index-1]}}</p>
+        <img src={{img_url}} alt="Image" style="height: 100%; width:100%;object-fit: contain;">
+    
       </div>
+    </div>
     {% endfor %}
+    </div>
+
+
 
 </body>
 </html>
