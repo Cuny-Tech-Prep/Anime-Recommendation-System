@@ -45,7 +45,7 @@ def main():
     rating = []
     synopsis =[]
     if flask.request.method == 'GET':
-        top5_animerating=anime_ratingCount[['anime_uid','title', 'score_review','img_url']].sort_values(by = 'score_review',ascending = False).head(5)
+        top5_animerating=anime_ratingCount[['anime_uid','title', 'score_review','img_url']].sort_values(by = 'score_review',ascending = False).head(10)
         
         for idd in top5_animerating['anime_uid']:
             imgs.append((anime_ratingCount[anime_ratingCount['anime_uid']==idd]['img_url']).values[0])

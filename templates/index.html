@@ -27,7 +27,7 @@
     }
   </style>
 </head>
-<body>
+<body style="background-color: rgb(48, 48, 48);">
 
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
@@ -50,7 +50,17 @@
 
 <div class="container">
   <div class="container text-center">   
-  <h2 >TOP 5 Anime Based on Rating Counts</h2>
+  <h2 style="padding-top: 7rem;
+      text-align: center;
+      text-transform: uppercase;
+      grid-area: 2 / 1 / 2 / 3;
+      align-self: center;
+      justify-self: center;
+      color: rgb(255, 255, 255);
+      text-transform: uppercase;
+      font-size: 4rem;
+      text-shadow: 0px 2px 4px rgba(0,0,0,.4);
+      margin-top: -5rem;" >TOP 10 Anime Based on Rating Counts</h2>
   </div>
 <div class="row">
   <div class="col-sm-12">
@@ -59,6 +69,16 @@
       <ol class="carousel-indicators">
         <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
         <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+        <li data-target="#myCarousel" data-slide-to="3"></li>
+        <li data-target="#myCarousel" data-slide-to="4"></li>
+        <li data-target="#myCarousel" data-slide-to="5"></li>
+        <li data-target="#myCarousel" data-slide-to="6"></li>
+        <li data-target="#myCarousel" data-slide-to="7"></li>
+        <li data-target="#myCarousel" data-slide-to="8"></li>
+        <li data-target="#myCarousel" data-slide-to="9"></li>
+        <li data-target="#myCarousel" data-slide-to="10"></li>
+
       </ol>
 
       <!-- Wrapper for slides -->
@@ -85,9 +105,9 @@
                 </div> 
                 <div class="col-sm-4" style="align-items: right;margin-top:20px;margin-bottom: 20px;" >
                   <div class="well">
-                    <h2>{{titles[loop.index]}}</h2>
-                    <h3>Rating: {{ratings[loop.index]}}</h3>
-                    <p>{{synopsis[loop.index]}} </p>
+                    <h2>{{titles[loop.index-1]}}</h2>
+                    <h3>Rating: {{ratings[loop.index-1]}}</h3>
+                    <p>{{synopsis[loop.index-1]}} </p>
                   </div>
               </div>
           </div>
@@ -112,21 +132,41 @@
   </div>
  
 </div>
-<hr>
+
 </div>
 
-	<div class="container text-center">    
+	<div class="container text-center"style="margin-top:50px;padding-bottom:100px;">    
 	<form action="{{ url_for('main') }}" method="POST">
 		<fieldset>
-			<legend>Recommending more...</legend>
-			Type your favrite anime title here:
+      <h2 style="padding-top: 5rem;
+            text-align: center;
+            text-transform: uppercase;
+            grid-area: 2 / 1 / 2 / 3;
+            align-self: center;
+            justify-self: center;
+            color: rgb(179, 179, 179);
+            text-transform: uppercase;
+            font-size: 3rem;
+            text-shadow: 0px 2px 4px rgba(0,0,0,.4);
+            margin-top: -5rem;">Recommending more...</h2>
+			<span style="color: rgb(255, 255, 255);">Type your favrite anime title here:</span>
 			<input name="user_input_text" type="text" required>
 			<input type="submit" value="Recommend">
 		</fieldset>
 	</form>
   {% if collaborative_img_url %}
-  <div class="container text-center">
-   <h2> Collaborative Filtering Recommendation</h2>
+  <div class="container text-center"style="margin-top:50px;">
+   <h2  style="padding-top: 5rem;
+            text-align: center;
+            text-transform: uppercase;
+            grid-area: 2 / 1 / 2 / 3;
+            align-self: center;
+            justify-self: center;
+            color: rgb(202, 202, 202);
+            text-transform: uppercase;
+            font-size: 3rem;
+            text-shadow: 0px 2px 4px rgba(0,0,0,.4);
+            margin-top: -5rem;"> Collaborative Filtering Recommendation</h2>
   
 		{% for img_url in collaborative_img_url %}
 		<div class="col-sm-3" style="align-items: center;width: 220px; margin-top: 20px;">
@@ -142,7 +182,17 @@
     
     {% if content_img_url %}
     <div class="container text-center">
-     <h2>Content Based Filtering Recommendation</h2> 
+     <h2  style="padding-top: 5rem;
+            text-align: center;
+            text-transform: uppercase;
+            grid-area: 2 / 1 / 2 / 3;
+            align-self: center;
+            justify-self: center;
+            color: rgb(202, 202, 202);
+            text-transform: uppercase;
+            font-size: 3rem;
+            text-shadow: 0px 2px 4px rgba(0,0,0,.4);
+            margin-top: -5rem;">Content Based Filtering Recommendation</h2> 
    
     {% for img_url in content_img_url %}
     <div class="col-sm-3" style="align-items: center;width: 220px; margin-top: 20px;">
