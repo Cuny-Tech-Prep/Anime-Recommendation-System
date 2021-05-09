@@ -61,6 +61,8 @@ def main():
 
 
     if flask.request.method == 'POST':
+        err = "" 
+
         top5_animerating=anime_ratingCount[['anime_uid','title', 'score_review','img_url']].sort_values(by = 'score_review',ascending = False).head(5)
         
         for idd in top5_animerating['anime_uid']:
@@ -72,21 +74,27 @@ def main():
         collaborative_recommended_anime_title =[]
         user_input_text = flask.request.form['user_input_text']
         collaborative_img_url=[]
-        for index in range(len(collaborative_filtering_rec[user_input_text][0])):
-            if index <N_RECOMMENDATIONS:
-                anime_title = collaborative_filtering_rec[user_input_text][0][index]
-                collaborative_recommended_anime_title.append(anime_title)
-                img_url = (df_anime[df_anime['title']==anime_title]['img_url'].values[0])
-                collaborative_img_url.append(img_url)
-                
+        try:
+            for index in range(len(collaborative_filtering_rec[user_input_text][0])):
+                if index <N_RECOMMENDATIONS:
+                    anime_title = collaborative_filtering_rec[user_input_text][0][index]
+                    collaborative_recommended_anime_title.append(anime_title)
+                    img_url = (df_anime[df_anime['title']==anime_title]['img_url'].values[0])
+                    collaborative_img_url.append(img_url)
+        except KeyError: 
+            err = "Title not found"
+
         content_recommended_anime_title =[]
         content_img_url=[]
-        for index in range(len(content_based_rec[user_input_text])):
-            if index <N_RECOMMENDATIONS:
-                anime_title = content_based_rec[user_input_text][index]
-                content_recommended_anime_title.append(anime_title)
-                img_url = (df_anime[df_anime['title']==anime_title]['img_url'].values[0])
-                content_img_url.append(img_url)
+        try:
+            for index in range(len(content_based_rec[user_input_text])):
+                if index <N_RECOMMENDATIONS:
+                    anime_title = content_based_rec[user_input_text][index]
+                    content_recommended_anime_title.append(anime_title)
+                    img_url = (df_anime[df_anime['title']==anime_title]['img_url'].values[0])
+                    content_img_url.append(img_url)
+        except KeyError: 
+            err = "Title not found" 
 
         return flask.render_template('index.html', 
             input_text=user_input_text,
@@ -97,7 +105,8 @@ def main():
             titles= title,
             collaborative_img_url = collaborative_img_url,
             content_recommended_anime_title= content_recommended_anime_title,
-            content_img_url=content_img_url
+            content_img_url=content_img_url,
+            error = err
            )
            
 
