@@ -4,9 +4,3 @@ gunicorn
 sklearn
 scikit-image
 numpy
-plotly
-scipy.sparse
-seaborn
-re
-TfidfVectorizer
-sigmoid_kernel

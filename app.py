@@ -6,11 +6,7 @@ from skimage import io
 from skimage import transform
 import numpy as np 
 from mpl_toolkits.mplot3d import Axes3D
-import seaborn as sns
-from scipy.sparse import csr_matrix
-import re
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import sigmoid_kernel
+
 app = flask.Flask(__name__, template_folder='templates')
 
 path_to_collaborative_filtering_rec = 'models/collaborative_filtering_rec.pkl'
