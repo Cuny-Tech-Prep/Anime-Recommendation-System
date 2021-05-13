@@ -14,6 +14,7 @@ path_to_anime_ratingCount= 'models/anime_ratingCount.pkl'
 path_to_df_anime= 'models/df_anime.pkl'
 path_to_anime_full_data= 'models/anime_data.pkl'
 path_to_content_based_rec = 'models/content_based_rec.pkl'
+N_RECOMMENDATIONS  = 5  # Recommending 5 only 
 
 
 
